@@ -11,7 +11,7 @@ This project contains the schematic, SPICE netlist, and simulation results for a
 
 ## Schematic
 
-![SRAM Schematic](sram_6t_dc_analysis.png)
+![SRAM Schematic](docs/images/sram_6t_dc_analysis.png)
 
 The 6T SRAM cell consists of:
 - Two cross-coupled CMOS inverters (M1–M2 and M17–M26).
@@ -21,12 +21,12 @@ The 6T SRAM cell consists of:
 ## Simulation Plots
 
 ### DC Sweep
-![DC Sweep](dc_analysis_sram.png)
+![DC Sweep](docs/images/dc_analysis_sram.png)
 
 This plot shows the DC sweep of the internal nodes **q** (red) and **qbar** (blue) as the input sweep voltage is varied. It illustrates the inverter transfer characteristics and the bistable nature of the SRAM cell.
 
 ### Butterfly Curve
-![Butterfly Curve](butterfly_curve_sram.png)
+![Butterfly Curve](docs/images/butterfly_curve_sram.png)
 
 The butterfly curve is obtained by plotting the inverter characteristics against each other. The **static noise margin (SNM)** is determined from the largest square that can fit inside the lobes of this curve.
 
