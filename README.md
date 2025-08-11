@@ -129,8 +129,35 @@ L_pmos_values = np.round(np.linspace(0.35, 1.35, 10), 2)
 ```
 The syntax is straightforward ```np.linspace(start,stop,num)``` , the starting vallue is start amd final value is given in stop and num is the number of equally spaced values between start and stop. The ```np.round(value,upto_decimal)``` is just to round off to second decimal just so that it looks neat and obviously realistic. Just vary it as you wish. Also I just put the pmos widths as twice as nmos widths just taking care of carrier mobility of pmos but its not absolutely necessary and an actual SRAM cells aspect ratios are much more specifically chosen, but this is just a standard practice in Digital circuits.
 
+### Running Ngspice from Python
 
+Inside the automation loop in `sram6T_simulation.py`, we use:
 
+```python
+process = subprocess.run(["ngspice", "-b", "temp.spice"], capture_output=True, text=True)
+```
+**Breakdown:**
+- `subprocess.run([...])` Runs an external program (here, ngspice) from Python and waits until it finishes.
+
+-  ["ngspice", "-b", "temp.spice"]
+
+  - **ngspice →** the SPICE simulator executable.
+
+  - **-b →** batch mode (no interactive GUI; runs silently).
+
+- **temp.spice →** the SPICE netlist to simulate (auto-generated in the loop).
+
+  - `capture_output=True` Captures both stdout (normal output) and stderr (errors). Without this, Ngspice output would be printed directly to the terminal.
+
+  - `text=True` Returns output as a string instead of raw bytes, making it easy to parse.
+
+This way the python script allows running multiple simulations automatically without opening the Ngspice GUI.The simulation output is stored in `process.stdout`, so the script can search for results:
+```python
+output_lines = process.stdout.split("\n")
+```
+Enables automatic extraction of NM_L and NM_H from simulation logs.
+
+                         **This is how you use the script ! hope it helps someone out there.**
 
 
 
