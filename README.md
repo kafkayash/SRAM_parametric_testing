@@ -32,14 +32,14 @@ The butterfly curve is obtained by plotting the inverter characteristics against
 
 ---
 
-## How to Run Simulations
+## How to Run Simulations:
 
-### Viewing the Schematic
+### Viewing the Schematic:
 To open the schematic in Xschem:
 ```bash
 xschem sram_6t_cell.sch
 ```
-### Running Ngspice for the plots
+### Running Ngspice for the plots:
 This runs the ngspice simulation and shows the plots, note that temp.spice is the file generated after final simulation loop i.e it has maximum defined paramaters. 
 ```bash
 ngspice sram6tplots.spice
@@ -74,21 +74,41 @@ print NM_L NM_H
 In ```mySRAM_6t.spice```, Ngspice calculates:
 
 - **NM_L**— lower noise margin.
-
 - **NM_H**— higher noise margin.
 
 **Method:**
-
-  - Sweep input voltage, record q and qbar.
-
-  - Mirror one curve → generate butterfly curve.
-
+  - Sweep input voltage, record **q** and **qbar**.
+  - **Mirror one curve** → generate butterfly curve.
   - Fit the largest possible square inside each lobe.
 
      ```SNM = min(NM_L, NM_H)```
+One important thing to consider before running the python script is that ```mySRAM_6t.spice``` uses  uses **placeholders** for transistor dimensions:
+```spice
+M1 q qbar GND GND nmos W={W_nmos} L={L_nmos}
+M2 qbar q VDD VDD pmos W={W_pmos} L={L_pmos}
+```
+The are set such that widths and lengths are considered to be a varibale to be updated by the python script while running each simulation. The aspect ratios will be taken accordingly and the spice file will be parsed by python and updated. These values are printed in Ngspice output and parsed by the Python script.
 
-These values are printed in Ngspice output and parsed by the Python script.
-### Python script
+**NOTE:**
+
+I have not yet updated the code to for the following functionalities:
+1. It does to generate a seperate spice file for each iteration.
+2. The manual SNM calculation is not integrated into spice file yet but however its not that hard, for anyone wishing to add the SNM calculation you can refer the following paper and update the given formulas into the ```.control``` block of spice file.
+##  Related Research
+
+This work builds upon the foundational static noise margin methodology introduced by:
+
+**E. Seevinck, F. J. List, and J. Lohstroh**, “Static-noise margin analysis of MOS SRAM cells,” *IEEE Journal of Solid-State Circuits*, vol. 22, no. 5, pp. 748–754, Oct. 1987.  
+Available via IEEE (requires access): [doi:10.1109/JSSC.1987.1052809](https://doi.org/10.1109/JSSC.1987.1052809)
+
+## Python script for Automation:
+The python script ```sram6T_simulation.py``` can be run by the command:
+```python
+python3 sram6T_simulation.py
+```
+once its running you will see something like this on your terminal
+
+
 
 
 
