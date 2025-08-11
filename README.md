@@ -38,3 +38,19 @@ The butterfly curve is obtained by plotting the inverter characteristics against
 To open the schematic in Xschem:
 ```bash
 xschem sram_6t_cell.sch
+```
+### Running Ngspice for the plots
+This runs the ngspice simulation and shows the plots, note that temp.spice is the file generated after final simulation loop i.e it has maximum defined paramaters. 
+```bash
+ngspice sram6tplots.spice
+```
+The plots itself is done by following lines in spice file
+```spice
+.include "sram_6t_cell.spice"
+.dc Vin 0 1.8 0.01
+.plot dc v(q) v(qbar)
+```
+### Python script
+
+
+
