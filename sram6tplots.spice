@@ -1,0 +1,10 @@
+.include "sram_6t_cell.spice"
+.control
+run
+*this plots the voltage transfer characteristics curve(vtc) for 6T cell for the  original W/L ratios, in case you want to vary W/L chnage it in original spice netlist
+plot Q Qbar 
+*this plots butterfly curve of 6T cell you can calucate SNM(static noise margin)  from this by placing largest fittable square in one upper reigion or finding largest diagonal intersecting the curve
+plot v(Q) vs v(Qbar) v(Qbar) vs v(Q) 
+.endc
+
+
