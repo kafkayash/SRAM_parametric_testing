@@ -59,7 +59,35 @@ plot v(Q) vs v(Qbar) v(Qbar) vs v(Q)
 The .control block added to ngspice takes care of the noise margin calculation, albeit it could've been done in python but its more practical to use spice itself for the calculations because when we have a very large number of cells then importing it to python and calculating it over there is lot slower and to avoid that latency issue its preferred to run it on spice itself.
 The calculation is pretty straight forward you just need to find the rate of change of the curve specifically at points where its derivative is negative one for the first time and second time that is what this block handles
 ```spice
+.control
+ run
+let dVQbar=deriv(V(Qbar))
+meas dc Vil FIND V(Q) WHEN dVQbar=-1 CROSS=1
+meas dc Vih FIND V(Q) WHEN dVQbar=-1 CROSS=2
+meas dc Vol FIND V(Qbar) WHEN dVQbar=-1 CROSS=2
+meas dc Voh FIND V(Qbar) AT=0.1
+let NM_H=Voh-Vih
+let NM_L=Vil-Vol
+print NM_L NM_H
+.endc
+```
+In ```mySRAM_6t.spice```, Ngspice calculates:
 
+- **NM_L**— lower noise margin.
+
+- **NM_H**— higher noise margin.
+
+**Method:**
+
+  - Sweep input voltage, record q and qbar.
+
+  - Mirror one curve → generate butterfly curve.
+
+  - Fit the largest possible square inside each lobe.
+
+     ```SNM = min(NM_L, NM_H)```
+
+These values are printed in Ngspice output and parsed by the Python script.
 ### Python script
 
 
