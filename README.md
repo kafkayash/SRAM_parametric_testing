@@ -47,10 +47,21 @@ ngspice sram6tplots.spice
 The plots itself is done by following lines in spice file
 ```spice
 .include "sram_6t_cell.spice"
-.dc Vin 0 1.8 0.01
-.plot dc v(q) v(qbar)
+.control
+run
+*this plots the voltage transfer characteristics curve(vtc) for 6T cell for the  original W/L ratios, in case you want to vary W/L chnage it in original spice netlist
+plot Q Qbar 
+*this plots butterfly curve of 6T cell you can calucate SNM(static noise margin)  from this by placing largest fittable square in one upper reigion or finding largest diagonal intersecting the curve
+plot v(Q) vs v(Qbar) v(Qbar) vs v(Q) 
+.endc
 ```
+### Ngspice noise margin logic:
+The .control block added to ngspice takes care of the noise margin calculation, albeit it could've been done in python but its more practical to use spice itself for the calculations because when we have a very large number of cells then importing it to python and calculating it over there is lot slower and to avoid that latency issue its preferred to run it on spice itself.
+The calculation is pretty straight forward you just need to find the rate of change of the curve specifically at points where its derivative is negative one for the first time and second time that is what this block handles
+```spice
+
 ### Python script
+
 
 
 
