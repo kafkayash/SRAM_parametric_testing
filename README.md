@@ -106,7 +106,28 @@ The python script ```sram6T_simulation.py``` can be run by the command:
 ```python
 python3 sram6T_simulation.py
 ```
-once its running you will see something like this on your terminal
+once its running you will see something like this on your terminal:
+
+![Automation_Results](docs/images/python_automation.png)
+
+Currently it is set to Run 10 iterations but you can change it to run a lot more.
+
+**NOTE:**
+- The iteration can be as many as you wish to simulate but be careful to not cross the PDK-constraints. For the sky130A pfets and nfets there are some threshold aspect ratios to be considered and it may vary according to the PDK and cells you are using. Here I used the LVT-cells from the PDK. Check your PDK documentation for knowing the particular constraints.
+  **W/L** values are set according to PDK limits:
+
+  - NMOS: W ≥ 0.3 µm, L ≤ 1.5 µm
+  - PMOS: Usually W is 2× NMOS W, L starts from ~0.35 µm for LVT cells.
+
+  These placeholders are replaced dynamically by the Python script for sweeps.
+Now you can change he following lines of code from ```sram6T_simulation.py``` according to the cells and PDK you are using:
+```python
+W_nmos_values = np.linspace(1, 10, 10)
+L_nmos_values = np.round(np.linspace(0.15, 1.1, 10), 2)
+W_pmos_values = W_nmos_values * 2
+L_pmos_values = np.round(np.linspace(0.35, 1.35, 10), 2)
+```
+The syntax is straightforward ```np.linspace(start,stop,num)``` , the starting vallue is start amd final value is given in stop and num is the number of equally spaced values between start and stop. The ```np.round(value,upto_decimal)``` is just to round off to second decimal just so that it looks neat and obviously realistic. Just vary it as you wish. Also I just put the pmos widths as twice as nmos widths just taking care of carrier mobility of pmos but its not absolutely necessary and an actual SRAM cells aspect ratios are much more specifically chosen, but this is just a standard practice in Digital circuits.
 
 
 
