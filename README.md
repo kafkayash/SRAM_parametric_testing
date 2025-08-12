@@ -120,7 +120,7 @@ Currently it is set to Run 10 iterations but you can change it to run a lot more
   - PMOS: Usually W is 2× NMOS W, L starts from ~0.35 µm for LVT cells.
 
   These placeholders are replaced dynamically by the Python script for sweeps.
-Now you can change he following lines of code from ```sram6T_simulation.py``` according to the cells and PDK you are using:
+Now you can change the following lines of code from ```sram6T_simulation.py``` according to the cells and PDK you are using:
 ```python
 W_nmos_values = np.linspace(1, 10, 10)
 L_nmos_values = np.round(np.linspace(0.15, 1.1, 10), 2)
