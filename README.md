@@ -91,7 +91,7 @@ The are set such that widths and lengths are considered to be a varibale to be u
 
 **NOTE:**
 
-I have not yet updated the code to for the following functionalities:
+I have not yet updated the code for the following functionalities:
 1. It does to generate a seperate spice file for each iteration.
 2. The manual SNM calculation is not integrated into spice file yet but however its not that hard, for anyone wishing to add the SNM calculation you can refer the following paper and update the given formulas into the ```.control``` block of spice file.
 ##  Related Research
@@ -113,7 +113,7 @@ once its running you will see something like this on your terminal:
 Currently it is set to Run 10 iterations but you can change it to run a lot more.
 
 **NOTE:**
-- The iteration can be as many as you wish to simulate but be careful to not cross the PDK-constraints. For the sky130A pfets and nfets there are some threshold aspect ratios to be considered and it may vary according to the PDK and cells you are using. Here I used the LVT-cells from the PDK. Check your PDK documentation for knowing the particular constraints.
+- The iterations can be as many as you wish to simulate but be careful to not cross the PDK-constraints. For the sky130A pfets and nfets there are some threshold aspect ratios to be considered and it may vary according to the PDK and cells you are using. Here I used the LVT-cells from the PDK. Check your PDK documentation for knowing the particular constraints.
   **W/L** values are set according to PDK limits:
 
   - NMOS: W ≥ 0.3 µm, L ≤ 1.5 µm
