@@ -82,7 +82,7 @@ In ```mySRAM_6t.spice```, Ngspice calculates:
   - Fit the largest possible square inside each lobe.
 
      ```SNM = min(NM_L, NM_H)```
-One important thing to consider before running the python script is that ```mySRAM_6t.spice``` uses  uses **placeholders** for transistor dimensions:
+One important thing to consider before running the python script is that ```mySRAM_6t.spice``` uses  **placeholders** for transistor dimensions:
 ```spice
 M1 q qbar GND GND nmos W={W_nmos} L={L_nmos}
 M2 qbar q VDD VDD pmos W={W_pmos} L={L_pmos}
